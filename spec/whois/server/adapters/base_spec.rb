@@ -115,14 +115,14 @@ describe Whois::Server::Adapters::Base do
     end
   end
 
-  describe "#query_the_socket" do
+  describe "#query_the_server" do
     context "without :bind_host or :bind_port options" do
       let(:server) { described_class.new(:tld, ".test", "whois.test", {}) }
 
       it "does not bind the WHOIS query" do
         expect(described_class.query_handler).to receive(:execute).with("example.test", "whois.test", 43)
 
-        server.send(:query_the_socket, "example.test", "whois.test", 43)
+        server.send(:query_the_server, "example.test", "whois.test", 43)
       end
     end
 
@@ -132,7 +132,7 @@ describe Whois::Server::Adapters::Base do
       it "binds the WHOIS query to given host and port" do
         expect(described_class.query_handler).to receive(:execute).with("example.test", "whois.test", 43, "192.168.1.1", 3000)
 
-        server.send(:query_the_socket, "example.test", "whois.test", 43)
+        server.send(:query_the_server, "example.test", "whois.test", 43)
       end
     end
 
@@ -142,7 +142,7 @@ describe Whois::Server::Adapters::Base do
       it "binds the WHOIS query to given port and defaults host" do
         expect(described_class.query_handler).to receive(:execute).with("example.test", "whois.test", 43, described_class::DEFAULT_BIND_HOST, 3000)
 
-        server.send(:query_the_socket, "example.test", "whois.test", 43)
+        server.send(:query_the_server, "example.test", "whois.test", 43)
       end
     end
   end

@@ -26,11 +26,11 @@ module Whois
         # @return [void]
         #
         def request(string)
-          response = query_the_socket("n + #{string}", host)
+          response = query_the_server("n + #{string}", host)
           buffer_append response, host
 
           if options[:referral] != false && (referral = extract_referral(response))
-            response = query_the_socket(string, referral[:host], referral[:port])
+            response = query_the_server(string, referral[:host], referral[:port])
             buffer_append(response, referral[:host])
           end
         end

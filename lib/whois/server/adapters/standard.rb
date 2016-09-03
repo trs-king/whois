@@ -48,7 +48,7 @@ module Whois
         # @return [void]
         #
         def request(string)
-          response = query_the_socket(string, host)
+          response = query_the_server(string, host)
           buffer_append response, host
         end
 
