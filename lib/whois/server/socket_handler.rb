@@ -14,9 +14,8 @@ require 'whois/errors'
 module Whois
   class Server
 
-    # The SocketHandler is the default query handler provided with the
-    # Whois library. It performs the WHOIS query using a synchronous
-    # socket connection.
+    # The SocketHandler is the default query handler provided with the Whois library.
+    # It performs the WHOIS query using a synchronous socket connection.
     class SocketHandler
 
       # Array of connection errors to rescue
@@ -26,32 +25,34 @@ module Whois
           SocketError,
       ]
 
-      # Performs the Socket request.
+      # Implements the Handler interface.
+      #
+      # It sends the request via TCP socket, and returns the response. This method also rescues
+      # common socket errors, and repackages them as Whois::ConnectionError.
       #
       # @todo *args might probably be a Hash.
       #
-      # @param  [String] query
-      # @param  [Array] args
+      # @param  query [String] the string that represents the query to send via the socket
+      # @param  args [Array]
       # @return [String]
-      #
-      def call(query, *args)
-        execute(query, *args)
+      # @raise  [Whois::ConnectionError]
+      def execute(query, *args)
+        socket_write_read(query, *args)
       rescue *RESCUABLE_CONNECTION_ERRORS => error
         raise ConnectionError, "#{error.class}: #{error.message}"
       end
 
-      # Executes the low-level Socket connection.
+
+      private
+
+      # Executes the low-level socket communication.
       #
-      # It opens the socket passing given +args+,
-      # sends the +query+ and reads the response.
+      # It opens the socket passing given +args+, sends the +query+ and reads the response.
       #
-      # @param  [String] query
-      # @param  [Array] args
-      # @return [String]
-      #
-      # @api private
-      #
-      def execute(query, *args)
+      # @param  query [String] the request to send to the socket
+      # @param  args [Array]
+      # @return [String] the answer returned by the socket
+      def socket_write_read(query, *args)
         client = TCPSocket.new(*args)
         client.write("#{query}\r\n")    # I could use put(foo) and forget the \n
         client.read                     # but write/read is more symmetric than puts/read

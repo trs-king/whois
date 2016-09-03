@@ -9,7 +9,7 @@ describe Whois::Server::Adapters::Arpa do
     it "returns the WHOIS record" do
       response = "Whois Response"
       server = described_class.new(*definition)
-      expect(Whois::Server::Adapters::Arin.query_handler).to receive(:call).with("n + 229.128.in-addr.arpa", "whois.arin.net", 43).and_return(response)
+      expect(Whois::Server::Adapters::Arin.query_handler).to receive(:execute).with("n + 229.128.in-addr.arpa", "whois.arin.net", 43).and_return(response)
 
       record = server.lookup("229.128.in-addr.arpa")
       expect(record.to_s).to eq(response)

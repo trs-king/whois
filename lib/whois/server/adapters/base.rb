@@ -187,7 +187,7 @@ module Whois
             args.push(options[:bind_port]) if options[:bind_port]
           end
 
-          self.class.query_handler.call(query, *args)
+          self.class.query_handler.execute(query, *args)
         end
 
         alias :query_the_socket :query
