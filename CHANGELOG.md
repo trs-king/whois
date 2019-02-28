@@ -5,7 +5,21 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 #### master
 
-- SERVER: Updated .MUSEUM
+- SERVER: Deleted .XPERIA, .TELECITY, .VISTA, .JLC, .PANERAI, .GOODHANDS, .STATOIL
+- SERVER: Updated .SHOP, .NAGOYA, .OKINAWA, .RYUKYU, .TOKYO, .YOKOHAMA, .ORGANIC
+
+
+#### Release 4.0.7
+
+- SERVER: Added .CHARITY, .INC
+- SERVER: Updated .COLOGNE, .KOELN, .IE, .AU
+- SERVER: Deleted .IWC
+
+
+#### Release 4.0.6
+
+- SERVER: Added .SPORT, .LLC, .FM (GH-568)
+- SERVER: Updated .MUSEUM, .MR, .PR, .AI, .SMART, .BAIDU, .GE, several newGTLDs
 - SERVER: Deleted .HTC
 
 
